@@ -11,11 +11,9 @@ const pushTokenModelStub = {
 	removeVoipTokensByUserIdAndAuthToken: sandbox.stub(),
 };
 const registerPushTokenStub = sandbox.stub();
-const loggerStub = { debug: sandbox.stub(), warn: sandbox.stub(), error: sandbox.stub(), info: sandbox.stub() };
 
 const { PushService } = proxyquire.noCallThru().load('../../../../../server/services/push/service', {
 	'@rocket.chat/models': { PushToken: pushTokenModelStub },
-	'./logger': { logger: loggerStub },
 	'./tokenManagement/registerPushToken': { registerPushToken: registerPushTokenStub },
 	'@rocket.chat/core-services': {
 		ServiceClassInternal: class {
