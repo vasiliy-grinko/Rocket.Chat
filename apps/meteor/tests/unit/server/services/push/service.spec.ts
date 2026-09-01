@@ -3,7 +3,6 @@ import { beforeEach, describe, it } from 'mocha';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
-// own sandbox: other specs call sinon.restore() on the default one
 const sandbox = sinon.createSandbox();
 
 const pushTokenModelStub = {
@@ -17,9 +16,7 @@ const { PushService } = proxyquire.noCallThru().load('../../../../../server/serv
 	'./tokenManagement/registerPushToken': { registerPushToken: registerPushTokenStub },
 	'@rocket.chat/core-services': {
 		ServiceClassInternal: class {
-			onEvent() {
-				// the service registers a watch.users listener on construction; irrelevant here
-			}
+			onEvent = (): void => undefined;
 		},
 	},
 });

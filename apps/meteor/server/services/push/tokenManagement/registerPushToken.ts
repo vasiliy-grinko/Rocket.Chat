@@ -47,7 +47,6 @@ export async function registerPushToken(data: PushTokenData): Promise<IPushToken
 	const doc = await findDocumentToUpdate(data);
 	const _id = doc ? await updateToken(doc, data) : await insertToken(data);
 
-	// Scope dedup by tokenType so a coexisting voip doc (same authToken) survives.
 	const removeResult = await PushToken.removeDuplicateTokens({
 		_id,
 		tokenType: data.tokenType,

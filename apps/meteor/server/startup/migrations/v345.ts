@@ -8,7 +8,6 @@ addMigration({
 	async up() {
 		const { col } = PushToken;
 
-		// Split coexisting voip tokens into their own documents; the deterministic _id keeps this idempotent.
 		await col
 			.aggregate([
 				{ $match: { voipToken: { $exists: true, $ne: null } } },
